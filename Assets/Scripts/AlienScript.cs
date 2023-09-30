@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class AlienScript : MonoBehaviour
 {
+    public static AlienScript instance;
+
     static Vector2 Z_RANGE = new(8, 13);
-    static Vector2 X_RANGE_PER_Z = new(-.4f, .4f);
+    static Vector2 X_RANGE_PER_Z = new(-.3f, .3f);
     static Vector2 Y_RANGE_PER_Z = new(0, 1);
     static Vector2 REPOSITION_TIMER_RANGE = new(5, 15);
     static Vector2 BLINK_TIMER_RANGE = new(1, 5);
@@ -16,12 +18,14 @@ public class AlienScript : MonoBehaviour
     public Transform bobAnchor;
     public Transform[] sclarae, irises;
 
-    Vector3 roomAnchor;
     float blinkTimer, repositionTimer;
     Vector3 targetPosition;
     Vector3 vTranslate, vRotate;
 
     void Start() {
+        if (instance == null) {
+            instance = this;
+        }
         // Start at max distance, in the middle of the XY range.
         float z = Z_RANGE.y;
         float x = z * (X_RANGE_PER_Z.x + X_RANGE_PER_Z.y) / 2;
@@ -43,7 +47,7 @@ public class AlienScript : MonoBehaviour
         if (lookDistance.x > 180) lookDistance.x -= 360;
         if (lookDistance.y < -180) lookDistance.y += 360;
         if (lookDistance.y > 180) lookDistance.y -= 360;
-        Vector3 irisPosition = new Vector3(lookDistance.y * -.005f, lookDistance.x * .005f, -.01f);
+        Vector3 irisPosition = new Vector3(lookDistance.y * -.0066f, lookDistance.x * .0066f, -.01f);
         foreach (Transform t in irises) {
             t.localPosition = irisPosition;
         }
@@ -57,9 +61,11 @@ public class AlienScript : MonoBehaviour
             SetRepositionTimer();
         }
         Vector3 offsetTargetPosition = targetPosition;
-        offsetTargetPosition.x += .33f * (roomAnchor.x - cameraTransform.localPosition.x);
-        offsetTargetPosition.z += .1f * cameraTransform.localPosition.z;
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 2);
+        float roomX = Mathf.RoundToInt(cameraTransform.position.x / 8) * 8;
+        offsetTargetPosition.x += roomX;
+        offsetTargetPosition.x += 1 * (roomX - cameraTransform.position.x);
+        offsetTargetPosition.z += .1f * cameraTransform.position.z;
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 8);
         bobAnchor.localPosition = new Vector3(
             .1f * Mathf.Sin(Time.time),
             .1f * Mathf.Sin(Time.time * 2),
@@ -71,7 +77,7 @@ public class AlienScript : MonoBehaviour
             blinkTimer = Util.SampleRangeVector(BLINK_TIMER_RANGE);
         }
         float blinkT = blinkTimer < BLINK_TIME ? 1 - ((blinkTimer / BLINK_TIME) - BLINK_TIME / 2) * 2 : 1;
-        float blinkScale = Mathf.Min(1, blinkT, .95f + .05f * Mathf.Sin(Time.time * .4f));
+        float blinkScale = Mathf.Min(1, blinkT, .9f + .1f * Mathf.Sin(Time.time * .4f));
         foreach (Transform t in sclarae) {
             t.localScale = new Vector3(1, blinkScale, 1);
         }
