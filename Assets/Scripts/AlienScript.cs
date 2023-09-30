@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class AlienScript : MonoBehaviour
 {
-    static Vector3 EYE_CONTACT_OFFSET = new(0, 5, 0);
-    static Vector2 Z_RANGE = new(7, 12);
+    static Vector2 Z_RANGE = new(8, 13);
     static Vector2 X_RANGE_PER_Z = new(-.4f, .4f);
     static Vector2 Y_RANGE_PER_Z = new(0, 1);
     static Vector2 REPOSITION_TIMER_RANGE = new(5, 15);
     static Vector2 BLINK_TIMER_RANGE = new(1, 5);
     static float BLINK_TIME = .1f;
 
-    public GameObject playerObject;
+    public Transform cameraTransform;
     public Transform bobAnchor;
     public Transform[] sclarae, irises;
 
@@ -37,7 +36,7 @@ public class AlienScript : MonoBehaviour
 
     void Update() {
         // Rotation and iris movement.
-        Quaternion lookRotation = Quaternion.LookRotation(transform.position - playerObject.transform.position - EYE_CONTACT_OFFSET);
+        Quaternion lookRotation = Quaternion.LookRotation(transform.position - cameraTransform.position);
         transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, lookRotation, ref vRotate, .33f);
         Vector3 lookDistance = (lookRotation * Quaternion.Inverse(transform.localRotation)).eulerAngles;
         if (lookDistance.x < -180) lookDistance.x += 360;
@@ -58,9 +57,9 @@ public class AlienScript : MonoBehaviour
             SetRepositionTimer();
         }
         Vector3 offsetTargetPosition = targetPosition;
-        offsetTargetPosition.x += .33f * (roomAnchor.x - playerObject.transform.localPosition.x);
-        offsetTargetPosition.z += .1f * playerObject.transform.localPosition.z;
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 1, 2);
+        offsetTargetPosition.x += .33f * (roomAnchor.x - cameraTransform.localPosition.x);
+        offsetTargetPosition.z += .1f * cameraTransform.localPosition.z;
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 2);
         bobAnchor.localPosition = new Vector3(
             .1f * Mathf.Sin(Time.time),
             .1f * Mathf.Sin(Time.time * 2),
