@@ -80,7 +80,8 @@ Shader "thquinn/ReflectionShader"
         // material work with both Universal Render Pipeline and Builtin Unity Pipeline
         Tags
         {
-            "RenderType" = "Opaque"
+            "Queue" = "Background"
+            "RenderType" = "Background"
             "RenderPipeline" = "UniversalPipeline"
         "UniversalMaterialType" = "Lit"
         "IgnoreProjector" = "True"
