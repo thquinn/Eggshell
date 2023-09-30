@@ -1,4 +1,4 @@
-Shader "thquinn/EyeShader"
+Shader "thquinn/IrisShader"
 {
     Properties
     {
@@ -18,11 +18,9 @@ Shader "thquinn/EyeShader"
 
         Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
-        ZTest Always
         Stencil {
             Ref 1
-            Comp Always
-            Pass Replace
+            Comp Equal
         }
 
         Pass
