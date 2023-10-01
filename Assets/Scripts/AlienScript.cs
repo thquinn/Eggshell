@@ -10,24 +10,33 @@ public class AlienScript : MonoBehaviour
     static Vector2 Z_RANGE = new(8, 13);
     static Vector2 X_RANGE_PER_Z = new(-.3f, .3f);
     static Vector2 Y_RANGE_PER_Z = new(0, .9f);
-    static Vector2 KNOCK_TIMER_RANGE = new(4, 6);
+    static Vector2 KNOCK_TIMER_RANGE = new(8, 10);
     static Vector2 REPOSITION_TIMER_RANGE = new(5, 15);
     static Vector2 BLINK_TIMER_RANGE = new(1, 5);
     static float BLINK_TIME = .1f;
     static float FLOAT_STRENGTH = .05f;
 
+    static float INTRO_WAIT_SECONDS_AWAKEN = 1;// DEBUG: 6;
+    static float INTRO_WAIT_SECONDS_APPEAR = 1;//2;
+
     public Transform cameraTransform;
     public Transform bobAnchor;
     public Transform[] sclarae, irises;
-    public AudioSource sfxSourceKnock;
+    public AudioSource sfxSourceKnock, sfxSourceSpeech, sfxSourceWhisper;
     public AudioClip[] sfxClipsKnock;
+    public VOScriptableObject[] voIntroTalking, voIntroWaitingToProgress;
 
+    RoomScript currentRoom;
     AlienState state;
     float stateTimer;
     float knockTimer;
     float blinkTimer, repositionTimer;
     Vector3 targetPosition;
     Vector3 vTranslate, vRotate;
+    Vector3 lookOverride;
+
+    Queue<VOScriptableObject> voQueue;
+    public VOScriptableObject voActive;
 
     void Start() {
         if (instance == null) {
@@ -37,13 +46,14 @@ public class AlienScript : MonoBehaviour
         float zStart = Z_RANGE.y;
         float zMid = (Z_RANGE.x + Z_RANGE.y) / 2;
         float xMid = zStart * (X_RANGE_PER_Z.x + X_RANGE_PER_Z.y) / 2;
-        float yMid = zStart * (Y_RANGE_PER_Z.x + Y_RANGE_PER_Z.y) / 2;
+        float yTarget = zStart * Mathf.Lerp(Y_RANGE_PER_Z.x, Y_RANGE_PER_Z.y, .8f);
         transform.localPosition = new Vector3(xMid, Y_RANGE_PER_Z.x * zStart, zStart);
-        targetPosition = new Vector3(xMid, yMid, zMid);
+        targetPosition = new Vector3(xMid, yTarget, zMid);
         foreach (Transform t in sclarae) {
             t.localScale = new Vector3(1, 0, 1);
         }
         SetRepositionTimer();
+        voQueue = new();
     }
     void SetRepositionTimer() {
         repositionTimer = Util.SampleRangeVector(REPOSITION_TIMER_RANGE);
@@ -52,16 +62,20 @@ public class AlienScript : MonoBehaviour
         state = newState;
         stateTimer = 0;
     }
+    public void SetCurrentRoom(RoomScript roomScript) {
+        currentRoom = roomScript;
+        voQueue.Clear();
+        lookOverride = Vector3.zero;
+        if (!currentRoom.isIntroRoom) {
+            state = AlienState.Main;
+        }
+    }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            SFXKnock();
-        }
         stateTimer += Time.deltaTime;
         if (state == AlienState.IntroWaitingToAwaken) {
-            if (stateTimer > 6) {
+            if (stateTimer > INTRO_WAIT_SECONDS_AWAKEN) {
                 ChangeState(AlienState.IntroKnocking);
-                knockTimer = Util.SampleRangeVector(KNOCK_TIMER_RANGE);
             }
         } else if (state == AlienState.IntroKnocking) {
             if (Vector3.Dot(cameraTransform.forward, Vector3.forward) < .66f) {
@@ -82,16 +96,24 @@ public class AlienScript : MonoBehaviour
             }
         } else if (state == AlienState.IntroAppearing) {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPosition, ref vTranslate, .5f);
-            if (stateTimer > 3) {
+            if (stateTimer > INTRO_WAIT_SECONDS_APPEAR) {
                 ChangeState(AlienState.IntroTalking);
+                voQueue = new Queue<VOScriptableObject>(voIntroTalking);
+                SFXSpeak();
+            }
+        } else if (state == AlienState.IntroTalking) {
+            if (voActive == null && voQueue.Count == 0) {
+                ChangeState(AlienState.IntroWaitingToProgress);
             }
         }
         UpdateMain();
     }
 
     void UpdateMain() {
+        // Choose look target.
+        Vector3 lookTarget = (lookOverride == Vector3.zero) ? cameraTransform.position : lookOverride;
         // Rotation and iris movement.
-        Quaternion lookRotation = Quaternion.LookRotation(transform.position - cameraTransform.position);
+        Quaternion lookRotation = Quaternion.LookRotation(transform.position - lookTarget);
         transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, lookRotation, ref vRotate, .33f);
         Vector3 lookDistance = (lookRotation * Quaternion.Inverse(transform.localRotation)).eulerAngles;
         if (lookDistance.x < -180) lookDistance.x += 360;
@@ -114,10 +136,10 @@ public class AlienScript : MonoBehaviour
             }
         }
         Vector3 offsetTargetPosition = targetPosition;
-        float roomX = Mathf.RoundToInt(cameraTransform.position.x / 8) * 8;
+        float roomX = Mathf.RoundToInt(lookTarget.x / 8) * 8;
         offsetTargetPosition.x += roomX;
-        offsetTargetPosition.x += 1 * (roomX - cameraTransform.position.x);
-        offsetTargetPosition.z += .1f * cameraTransform.position.z;
+        offsetTargetPosition.x += 1 * (roomX - lookTarget.x);
+        offsetTargetPosition.z += .1f * lookTarget.z;
         if (state >= AlienState.IntroAppearing) {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 8);
         }
@@ -138,7 +160,7 @@ public class AlienScript : MonoBehaviour
         if (state < AlienState.IntroAppearing) {
             blinkScale = 0;
         } else if (state == AlienState.IntroAppearing) {
-            blinkScale = Mathf.Lerp(0, blinkScale, stateTimer * 2);
+            blinkScale = Mathf.Lerp(0, blinkScale, stateTimer * 4);
         }
         foreach (Transform t in sclarae) {
             t.localScale = new Vector3(1, blinkScale, 1);
@@ -147,6 +169,37 @@ public class AlienScript : MonoBehaviour
 
     void SFXKnock() {
         sfxSourceKnock.PlayOneShot(sfxClipsKnock[Random.Range(0, sfxClipsKnock.Length)], 2);
+    }
+    void SFXSpeak() {
+        if (voQueue.Count == 0) {
+            return;
+        }
+        VOScriptableObject vo = voQueue.Dequeue();
+        sfxSourceSpeech.PlayOneShot(vo.voiceClip);
+        sfxSourceWhisper.PlayOneShot(vo.whisperClip);
+        voActive = vo;
+        HandleScriptActions(vo.startActions);
+        float length = Mathf.Max(vo.voiceClip.length, vo.whisperClip.length);
+        Invoke("ClearVOActive", length - 1);
+    }
+    void ClearVOActive() {
+        if (voQueue.Count > 0) {
+            Invoke("SFXSpeak", 2 + voActive.wait);
+        }
+        voActive = null;
+    }
+    void HandleScriptActions(VOScriptAction[] actions) {
+        foreach (VOScriptAction action in actions) {
+            if (action == VOScriptAction.Replay) {
+                voQueue.Enqueue(voActive);
+            } else if (action == VOScriptAction.OpenDoor) {
+                currentRoom.OpenDoor();
+            } else if (action == VOScriptAction.LookAtDoor) {
+                lookOverride = currentRoom.transform.position + new Vector3(4, 2, -6);
+            } else if (action == VOScriptAction.LookAtPlayer) {
+                lookOverride = Vector3.zero;
+            }
+        }
     }
 }
 

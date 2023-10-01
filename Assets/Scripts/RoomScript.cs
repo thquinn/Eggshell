@@ -7,6 +7,7 @@ public class RoomScript : MonoBehaviour
     public GameObject prefabNextRoom;
     public DoorScript door;
     public PanelScript panelFloor, panelCeiling;
+    public bool isIntroRoom;
     public bool usesPanelFloor, usesPanelCeiling;
 
     public GameObject[] reflectedObjects;
@@ -26,7 +27,7 @@ public class RoomScript : MonoBehaviour
         }
         reflection.localScale = new Vector3(1, 1, -1);
         reflection.parent = transform;
-        Invoke("OpenPanels", .5f);
+        //Invoke("OpenPanels", .5f);
     }
     public void OpenPanels() {
         if (usesPanelFloor) {
@@ -63,6 +64,8 @@ public class RoomScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         occupied = true;
+        OpenPanels();
+        AlienScript.instance.SetCurrentRoom(this);
     }
     private void OnTriggerExit(Collider other) {
         occupied = false;

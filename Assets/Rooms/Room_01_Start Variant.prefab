@@ -657,6 +657,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
+      propertyPath: isIntroRoom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
       propertyPath: prefabNextRoom
       value: 
       objectReference: {fileID: 7128312171024263061, guid: a3acb5f76e09e154eac323ceabd78eb9,

@@ -18,12 +18,22 @@ public class PlayerScript : MonoBehaviour
 
     bool isGrounded, jumped;
     float groundTimer;
+    bool intro;
+    float introTimer;
+    Vector3 vIntroTheta;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
+        intro = true;
+        rb.isKinematic = true;
+        transform.localRotation = Quaternion.Euler(new Vector3(-90, 20, 0));
     }
 
     void Update() {
+        if (intro) {
+            UpdateIntro();
+            return;
+        }
         UpdateLook();
         UpdateControls();
     }
@@ -78,5 +88,17 @@ public class PlayerScript : MonoBehaviour
         }
         jumped = false;
         rb.velocity = new Vector3(moveVelocity.x, yVelocity, moveVelocity.z);
+    }
+
+    void UpdateIntro() {
+        introTimer += Time.deltaTime;
+        if (introTimer > 2) {
+            transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, Quaternion.identity, ref vIntroTheta, 1);
+        }
+        if (Mathf.Abs(transform.localRotation.eulerAngles.x) < 1) {
+            transform.localRotation = Quaternion.identity;
+            rb.isKinematic = false;
+            intro = false;
+        }
     }
 }

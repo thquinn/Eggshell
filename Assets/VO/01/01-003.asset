@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df40a5c7ec3972d43a296ca0c4c8bc0c, type: 3}
+  m_Name: 01-003
+  m_EditorClassIdentifier: 
+  voiceClip: {fileID: 8300000, guid: 31e39c51f632f77479a5f9466d47c422, type: 3}
+  whisperClip: {fileID: 8300000, guid: 69d40e5b12ad138478d811f59889b4fb, type: 3}
+  alienText: "ei s\u0323uvatsas , eyambos\u0323 s\u0323uvatsas bi"
+  englishText: Intellectual nourishment, or nutritional nourishment.
