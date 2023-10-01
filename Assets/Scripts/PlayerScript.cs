@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     static float MOVE_INERTIA = .9f;
     static float STOP_INERTIA = .9f;
     static float LOOK_SENSITIVITY = 2;
-    static float JUMP_SPEED = 6.5f;
+    static float JUMP_SPEED = 5f;
     static float COYOTE_TIME = .33f;
     static float JUMP_DELAY = .2f;
 
