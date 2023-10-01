@@ -15,15 +15,17 @@ public class AlienScript : MonoBehaviour
     static Vector2 BLINK_TIMER_RANGE = new(1, 5);
     static float BLINK_TIME = .1f;
     static float FLOAT_STRENGTH = .05f;
+    static Vector3 GRIN_PUPIL_SCALE = new Vector3(.2f, .2f, 1);
+    static float GRIN_IRIS_SHAKE_FACTOR = .02f;
 
     static float INTRO_WAIT_SECONDS_AWAKEN = 1;// DEBUG: 6;
     static float INTRO_WAIT_SECONDS_APPEAR = 1;//2;
 
     public Transform cameraTransform;
     public Transform bobAnchor;
-    public Transform[] sclarae, irises;
+    public Transform[] sclarae, irises, pupils;
     public Transform mouthTransform;
-    public AudioSource sfxSourceKnock, sfxSourceSpeech, sfxSourceWhisper;
+    public AudioSource sfxSourceKnock, sfxSourceSpeech, sfxSourceWhisper, sfxSourceNotes;
     public AudioClip[] sfxClipsKnock;
     public VOScriptableObject[] voIntroTalking, voIntroWaitingToProgress;
 
@@ -35,7 +37,8 @@ public class AlienScript : MonoBehaviour
     Vector3 targetPosition;
     Vector3 vTranslate, vRotate;
     Vector3 lookOverride;
-    Vector3 vGrin;
+    Vector3 vGrin, vPupils;
+    float vNotesDistance;
 
     Queue<VOScriptableObject> voQueue;
     public VOScriptableObject voActive;
@@ -107,7 +110,9 @@ public class AlienScript : MonoBehaviour
             if (stateTimer > INTRO_WAIT_SECONDS_APPEAR) {
                 ChangeState(AlienState.IntroTalking);
                 voQueue = new Queue<VOScriptableObject>(voIntroTalking);
-                SFXSpeak();
+                if (!speakActive) {
+                    SFXSpeak();
+                }
             }
         } else if (state == AlienState.IntroTalking) {
             if (voActive == null && voQueue.Count == 0) {
@@ -115,8 +120,13 @@ public class AlienScript : MonoBehaviour
             }
         }
         UpdateMain();
+        if (state >= AlienState.EndLooming) {
+            sfxSourceNotes.maxDistance = Mathf.SmoothDamp(sfxSourceNotes.maxDistance, 30, ref vNotesDistance, 2);
+        }
         if (state == AlienState.EndGrin) {
             mouthTransform.localScale = Vector3.SmoothDamp(mouthTransform.localScale, Vector3.one, ref vGrin, 1f);
+            pupils[0].localScale = Vector3.SmoothDamp(pupils[0].localScale, GRIN_PUPIL_SCALE, ref vPupils, 1f);
+            pupils[1].localScale = pupils[0].localScale;
         }
     }
 
@@ -132,6 +142,8 @@ public class AlienScript : MonoBehaviour
         if (lookDistance.y < -180) lookDistance.y += 360;
         if (lookDistance.y > 180) lookDistance.y -= 360;
         Vector3 irisPosition = new Vector3(lookDistance.y * -.0066f, lookDistance.x * .0066f, -.01f);
+        irisPosition.x += Random.Range(-1f, 1f) * GRIN_IRIS_SHAKE_FACTOR * mouthTransform.localScale.y;
+        irisPosition.y += Random.Range(-1f, 1f) * GRIN_IRIS_SHAKE_FACTOR * mouthTransform.localScale.y;
         foreach (Transform t in irises) {
             t.localPosition = irisPosition;
         }
@@ -192,10 +204,13 @@ public class AlienScript : MonoBehaviour
     void SFXKnock() {
         sfxSourceKnock.PlayOneShot(sfxClipsKnock[Random.Range(0, sfxClipsKnock.Length)], 2);
     }
+    bool speakActive;
     void SFXSpeak() {
         if (voQueue.Count == 0) {
+            speakActive = false;
             return;
         }
+        speakActive = true;
         VOScriptableObject vo = voQueue.Dequeue();
         sfxSourceSpeech.PlayOneShot(vo.voiceClip);
         sfxSourceWhisper.PlayOneShot(vo.whisperClip);

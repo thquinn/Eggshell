@@ -535,9 +535,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
+      propertyPath: voStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 7dda353a621a4844f92b230ace5b7a97,
+        type: 2}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: voSuccess
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a26ce679a1a2074ab92550f1026b1cd,
+        type: 2}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
       propertyPath: prefabNextRoom
       value: 
-      objectReference: {fileID: 1443495497200860680, guid: a8397b7c969782e42bc3dd142f261c03,
+      objectReference: {fileID: 7447058470168074520, guid: f31b7ad91817367479cdaa88ef99fb00,
         type: 3}
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}

@@ -24,7 +24,7 @@ public class PanelScript : MonoBehaviour
     void Start() {
         slideTarget = new(0, .1f, panels[0].localScale.z);
         subjectRaisedPosition = subject.localPosition;
-        subject.localPosition -= new Vector3(0, 4, 0);
+        subject.localPosition -= new Vector3(0, 5.5f, 0);
         foreach (Rigidbody rb in simuateOnFinish) {
             rb.isKinematic = true;
         }

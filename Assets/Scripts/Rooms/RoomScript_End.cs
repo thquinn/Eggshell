@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class RoomScript_End : MonoBehaviour
 {
-    static float ELEVATOR_RIDE_LENGTH = 10;
+    static float ELEVATOR_RIDE_LENGTH = 12;
     static float CLOCHE_DIM_FACTOR = .66f;
 
+    public RoomScript roomScript;
     public FootprintTriggerScript trigger;
     public VOScriptableObject[] elevatorVOs;
     public GameObject[] elevatorParts;
     public Transform[] ceilingPivots;
     public GameObject diningParent, clocheMock;
     public ClocheAnimationScript clocheAnimation;
-    public SpriteRenderer dimmerRenderer;
+    public SpriteRenderer footprintRenderer, glowRenderer, dimmerRenderer;
 
     Vector3 elevatorTargetPosition;
     EndPhase phase;
@@ -24,6 +25,7 @@ public class RoomScript_End : MonoBehaviour
     Color initAmbientSky, initAmbientEquator, initAmbientGround;
     Color dimmedAmbientSky, dimmedAmbientEquator, dimmedAmbientGround;
     float tAmbient, vAmbient;
+    float vFootprintAlpha, vGlowAlpha;
 
     void Start() {
         elevatorTargetPosition = trigger.transform.localPosition + new Vector3(0, 7.5f, 0);
@@ -45,7 +47,11 @@ public class RoomScript_End : MonoBehaviour
     }
 
     void UpdateWaitingForTrigger() {
+        Color c = footprintRenderer.color;
+        c.a = (Mathf.Sin(Time.time) + 1) / 4;
+        footprintRenderer.color = c;
         if (trigger.triggered) {
+            Destroy(roomScript.prevRoomScript?.prevRoomScript?.gameObject);
             PlayerScript.instance.rb.isKinematic = true;
             foreach (GameObject go in elevatorParts) {
                 go.transform.parent = trigger.transform;
@@ -77,19 +83,27 @@ public class RoomScript_End : MonoBehaviour
             ceilingPivots[i].localRotation = Quaternion.Euler(ceilingPivotTheta, i * 180, 0);
         }
         // Dimming effects.
+        Color c;
         if (clocheAnimation.enabled) {
             tAmbient = Mathf.SmoothDamp(tAmbient, 0, ref vAmbient, .1f);
         }
         else if (playerY > 4.25f) {
             tAmbient = Mathf.SmoothDamp(tAmbient, 1, ref vAmbient, 6f);
             // Get rid of the fake dimmer.
-            Color c = dimmerRenderer.color;
-            c.a = Mathf.SmoothDamp(c.a, 0, ref vDimmerAlpha, .5f);
+            c = dimmerRenderer.color;
+            c.a = Mathf.SmoothDamp(c.a, 0, ref vDimmerAlpha, 1f);
             dimmerRenderer.color = c;
         }
         RenderSettings.ambientSkyColor = Color.Lerp(initAmbientSky, dimmedAmbientSky, tAmbient);
         RenderSettings.ambientEquatorColor = Color.Lerp(initAmbientEquator, dimmedAmbientEquator, tAmbient);
         RenderSettings.ambientGroundColor = Color.Lerp(initAmbientGround, dimmedAmbientGround, tAmbient);
+        // Misc.
+        c = footprintRenderer.color;
+        c.a = Mathf.SmoothDamp(c.a, 0, ref vFootprintAlpha, 1f);
+        footprintRenderer.color = c;
+        c = glowRenderer.color;
+        c.a = Mathf.SmoothDamp(c.a, playerY > 4.5f ? 0 : 1, ref vGlowAlpha, 1);
+        glowRenderer.color = c;
     }
 }
 

@@ -18,4 +18,4 @@ MonoBehaviour:
   englishText: You will become something more.
   startActions: 
   endActions: 
-  wait: 0
+  wait: 4

@@ -16,6 +16,6 @@ MonoBehaviour:
   whisperClip: {fileID: 8300000, guid: c7a2e5caf50151f4cacd5a501be724b0, type: 3}
   alienText: "we s\u0323untallo"
   englishText: My dinner.
-  startActions: 
+  startActions: 04000000
   endActions: 
   wait: 0
