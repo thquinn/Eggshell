@@ -14,5 +14,7 @@ public enum VOScriptAction {
     OpenDoor,
     LookAtPlayer,
     LookAtDoor,
+    DelayedDeploy,
     Grin,
+    GameOver,
 }

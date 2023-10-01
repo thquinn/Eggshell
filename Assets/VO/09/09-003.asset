@@ -16,6 +16,6 @@ MonoBehaviour:
   whisperClip: {fileID: 8300000, guid: 58c78b083d33d4641b1507980b20e33e, type: 3}
   alienText: di havo
   englishText: Let us begin.
-  startActions: 
+  startActions: 04000000
   endActions: 
   wait: 0

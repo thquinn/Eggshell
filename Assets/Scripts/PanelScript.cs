@@ -16,7 +16,7 @@ public class PanelScript : MonoBehaviour
 
     Vector3 slideTarget;
     Vector3 subjectRaisedPosition;
-    bool opening;
+    public bool open;
     float t;
     Vector3 v, subjectV;
     bool finished;
@@ -30,14 +30,14 @@ public class PanelScript : MonoBehaviour
         }
     }
     public void Open() {
-        if (!opening) {
+        if (!open) {
             sfx.Play();
         }
-        opening = true;
+        open = true;
     }
     
     void Update() {
-        if (!opening) {
+        if (!open) {
             return;
         }
         t += Time.deltaTime;

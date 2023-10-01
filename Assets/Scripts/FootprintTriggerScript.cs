@@ -6,7 +6,9 @@ public class FootprintTriggerScript : MonoBehaviour
 {
     public bool triggered;
 
-    private void OnTriggerEnter(Collider other) {
-        triggered = true;
+    private void OnTriggerStay(Collider other) {
+        if (AlienScript.instance.IsVODone()) {
+            triggered = true;
+        }
     }
 }

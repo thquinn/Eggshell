@@ -51,7 +51,9 @@ public class RoomScript_End : MonoBehaviour
         c.a = (Mathf.Sin(Time.time) + 1) / 4;
         footprintRenderer.color = c;
         if (trigger.triggered) {
+            trigger.enabled = false;
             Destroy(roomScript.prevRoomScript?.prevRoomScript?.gameObject);
+            Destroy(roomScript.prevRoomScript?.ceilingHollow);
             PlayerScript.instance.rb.isKinematic = true;
             foreach (GameObject go in elevatorParts) {
                 go.transform.parent = trigger.transform;

@@ -10,6 +10,7 @@ public class SimonButtonScript : MonoBehaviour
     public int buttonIndex;
 
     public SpriteRenderer glowRenderer;
+    public AudioSource sfx;
     Vector3 vPush;
     float vGlowAlpha;
 
@@ -21,6 +22,7 @@ public class SimonButtonScript : MonoBehaviour
         c.a = 1;
         glowRenderer.color = c;
         vGlowAlpha = 0;
+        sfx.Play();
     }
 
     void Update() {

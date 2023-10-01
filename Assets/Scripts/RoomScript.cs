@@ -8,8 +8,9 @@ public class RoomScript : MonoBehaviour
     public DoorScript door;
     public PanelScript panelFloor, panelCeiling;
     public bool isIntroRoom;
-    public bool usesPanelFloor, usesPanelCeiling;
+    public bool usesPanelFloor, usesPanelCeiling, delayedDeploy;
 
+    public GameObject ceilingHollow;
     public GameObject[] reflectedObjects;
     public Material materialReflection;
     public AudioSource sfxDoorOpen, sfxDoorClose, sfxTestPass, sfxTestFail;
@@ -30,7 +31,8 @@ public class RoomScript : MonoBehaviour
         reflection.localScale = new Vector3(1, 1, -1);
         reflection.parent = transform;
     }
-    public void OpenPanels() {
+    public void OpenPanels(bool delayed = false) {
+        if (delayedDeploy && !delayed) return;
         if (usesPanelFloor) {
             panelFloor.Open();
         }
@@ -38,7 +40,7 @@ public class RoomScript : MonoBehaviour
             panelCeiling.Open();
         }
     }
-    public void OpenDoor() {
+    public void OpenDoor(bool pass = true) {
         if (nextRoomScript == null) {
             Destroy(prevRoomScript?.prevRoomScript?.gameObject);
             nextRoomScript = Instantiate(prefabNextRoom).GetComponent<RoomScript>();
@@ -48,10 +50,10 @@ public class RoomScript : MonoBehaviour
         bool opened = door.Open();
         if (opened) {
             if (tag != "IntroRoom") {
-                sfxTestPass.Play();
+                (pass ? sfxTestPass : sfxTestFail).Play();
             }
             sfxDoorOpen.Play();
-            AlienScript.instance.EnqueueVO(voSuccess);
+            AlienScript.instance.EnqueueVO(pass ? voSuccess : voFail);
         }
     }
     public void CloseDoor() {

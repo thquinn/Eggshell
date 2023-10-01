@@ -18,8 +18,8 @@ public class AlienScript : MonoBehaviour
     static Vector3 GRIN_PUPIL_SCALE = new Vector3(.2f, .2f, 1);
     static float GRIN_IRIS_SHAKE_FACTOR = .02f;
 
-    static float INTRO_WAIT_SECONDS_AWAKEN = 1;// DEBUG: 6;
-    static float INTRO_WAIT_SECONDS_APPEAR = 1;//2;
+    static float INTRO_WAIT_SECONDS_AWAKEN = 1;
+    static float INTRO_WAIT_SECONDS_APPEAR = 1;
 
     public Transform cameraTransform;
     public Transform bobAnchor;
@@ -28,6 +28,7 @@ public class AlienScript : MonoBehaviour
     public AudioSource sfxSourceKnock, sfxSourceSpeech, sfxSourceWhisper, sfxSourceNotes;
     public AudioClip[] sfxClipsKnock;
     public VOScriptableObject[] voIntroTalking, voIntroWaitingToProgress;
+    public GameOverScript gameOver;
 
     RoomScript currentRoom;
     AlienState state;
@@ -39,6 +40,7 @@ public class AlienScript : MonoBehaviour
     Vector3 lookOverride;
     Vector3 vGrin, vPupils;
     float vNotesDistance;
+    float voWait;
 
     Queue<VOScriptableObject> voQueue;
     public VOScriptableObject voActive;
@@ -59,6 +61,7 @@ public class AlienScript : MonoBehaviour
         }
         SetRepositionTimer();
         voQueue = new();
+        knockTimer = 2;
     }
     void SetRepositionTimer() {
         repositionTimer = Util.SampleRangeVector(REPOSITION_TIMER_RANGE);
@@ -69,7 +72,9 @@ public class AlienScript : MonoBehaviour
     }
     public void SetCurrentRoom(RoomScript roomScript) {
         currentRoom = roomScript;
-        voQueue.Clear();
+        if (currentRoom.prevRoomScript?.tag == "IntroRoom") {
+            voQueue.Clear();
+        }
         lookOverride = Vector3.zero;
         if (!currentRoom.isIntroRoom) {
             state = AlienState.Main;
@@ -79,10 +84,13 @@ public class AlienScript : MonoBehaviour
         foreach (VOScriptableObject vo in vos) {
             voQueue.Enqueue(vo);
         }
-        SFXSpeak();
+    }
+    public void ClearVOQueue() {
+        voQueue.Clear();
     }
 
     void Update() {
+        UpdateVO();
         stateTimer += Time.deltaTime;
         if (state == AlienState.IntroWaitingToAwaken) {
             if (stateTimer > INTRO_WAIT_SECONDS_AWAKEN) {
@@ -100,7 +108,7 @@ public class AlienScript : MonoBehaviour
             }
             if (knockTimer <= 0) {
                 SFXKnock();
-                knockTimer = Util.SampleRangeVector(KNOCK_TIMER_RANGE);
+                knockTimer = VignetteScript.instance.dismissed ? Util.SampleRangeVector(KNOCK_TIMER_RANGE) : 5;
             }
             if (stateTimer > 2) {
                 ChangeState(AlienState.IntroAppearing);
@@ -110,9 +118,6 @@ public class AlienScript : MonoBehaviour
             if (stateTimer > INTRO_WAIT_SECONDS_APPEAR) {
                 ChangeState(AlienState.IntroTalking);
                 voQueue = new Queue<VOScriptableObject>(voIntroTalking);
-                if (!speakActive) {
-                    SFXSpeak();
-                }
             }
         } else if (state == AlienState.IntroTalking) {
             if (voActive == null && voQueue.Count == 0) {
@@ -201,32 +206,27 @@ public class AlienScript : MonoBehaviour
         }
     }
 
-    void SFXKnock() {
-        sfxSourceKnock.PlayOneShot(sfxClipsKnock[Random.Range(0, sfxClipsKnock.Length)], 2);
+    public bool IsVODone() {
+        return voActive == null && voQueue.Count == 0;
     }
-    bool speakActive;
-    void SFXSpeak() {
-        if (voQueue.Count == 0) {
-            speakActive = false;
-            return;
+    void UpdateVO() {
+        if (!sfxSourceSpeech.isPlaying && !sfxSourceWhisper.isPlaying) {
+            if (voActive != null) {
+                HandleScriptActions(voActive.endActions);
+                voWait = 1 + voActive.wait;
+            }
+            voActive = null;
         }
-        speakActive = true;
-        VOScriptableObject vo = voQueue.Dequeue();
+        if (voWait <= 0 && voActive == null && voQueue.Count > 0) {
+            SFXSpeak(voQueue.Dequeue());
+        }
+        voWait -= Time.deltaTime;
+    }
+    public void SFXSpeak(VOScriptableObject vo) {
+        voActive = vo;
         sfxSourceSpeech.PlayOneShot(vo.voiceClip);
         sfxSourceWhisper.PlayOneShot(vo.whisperClip);
-        voActive = vo;
         HandleScriptActions(vo.startActions);
-        float length = Mathf.Max(vo.voiceClip.length, vo.whisperClip.length);
-        Invoke("ClearVOActive", length - 1);
-    }
-    void ClearVOActive() {
-        if (voActive != null) {
-            HandleScriptActions(voActive.endActions);
-        }
-        if (voQueue.Count > 0) {
-            Invoke("SFXSpeak", 2 + voActive.wait);
-        }
-        voActive = null;
     }
     void HandleScriptActions(VOScriptAction[] actions) {
         foreach (VOScriptAction action in actions) {
@@ -238,10 +238,18 @@ public class AlienScript : MonoBehaviour
                 lookOverride = currentRoom.transform.position + new Vector3(6, 2, -6);
             } else if (action == VOScriptAction.LookAtPlayer) {
                 lookOverride = Vector3.zero;
+            } else if (action == VOScriptAction.DelayedDeploy) {
+                currentRoom.OpenPanels(true);
             } else if (action == VOScriptAction.Grin) {
                 ChangeState(AlienState.EndGrin);
+            } else if (action == VOScriptAction.GameOver) {
+                gameOver.enabled = true;
             }
         }
+    }
+    void SFXKnock() {
+        sfxSourceKnock.PlayOneShot(sfxClipsKnock[Random.Range(0, sfxClipsKnock.Length)], 2);
+        VignetteScript.instance.Knock();
     }
 }
 

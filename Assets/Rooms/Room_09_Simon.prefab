@@ -972,6 +972,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8237007062721378473}
     m_Modifications:
+    - target: {fileID: 803301685639429285, guid: c439b5e7769e7fd4aa984c36ea71d816,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5710498450822464964, guid: c439b5e7769e7fd4aa984c36ea71d816,
         type: 3}
       propertyPath: m_Name
@@ -1229,6 +1234,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
+      propertyPath: delayedDeploy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
       propertyPath: prefabNextRoom
       value: 
       objectReference: {fileID: 1443495497200860680, guid: a8397b7c969782e42bc3dd142f261c03,
@@ -1333,6 +1343,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomScript: {fileID: 1490938181863457486}
+  words:
+  - {fileID: 11400000, guid: ded4b169e953f0049a39ce850966c13d, type: 2}
+  - {fileID: 11400000, guid: 4c7c0b4ccff7f9644849e402597e5d55, type: 2}
+  - {fileID: 11400000, guid: 13f2be1967f413d43954ef1ad1579deb, type: 2}
+  - {fileID: 11400000, guid: 81029af8f57b7c848b79fd99307d1a14, type: 2}
+  - {fileID: 11400000, guid: 633227f6d8641314c97e5d1183a8f3e7, type: 2}
 --- !u!4 &8548786153963654802 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 988681592028760322, guid: b183be5debc4b0a48a6362d01471ee11,

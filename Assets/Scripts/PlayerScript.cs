@@ -113,6 +113,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void UpdateIntro() {
+        if (VignetteScript.instance.dismissTime < 1) { return; }
         introTimer += Time.deltaTime;
         if (introTimer > 2) {
             transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, Quaternion.identity, ref vIntroTheta, 1);

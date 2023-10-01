@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 3.9, y: 3.5, z: -0.1}
-  m_LocalScale: {x: 10, y: 0.6, z: 0.2}
+  m_LocalScale: {x: 7.3, y: 0.6, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5503104452100275000}
@@ -177,6 +177,7 @@ MonoBehaviour:
   subject: {fileID: 588766048964103040}
   simuateOnFinish: []
   sfx: {fileID: 4535016139687138129}
+  open: 0
 --- !u!1 &590656205303190410
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +683,8 @@ MonoBehaviour:
   isIntroRoom: 0
   usesPanelFloor: 0
   usesPanelCeiling: 0
+  delayedDeploy: 0
+  ceilingHollow: {fileID: 5599700112819540301}
   reflectedObjects:
   - {fileID: 7815885283867501950}
   - {fileID: 2784009257127810757}
@@ -705,6 +708,9 @@ MonoBehaviour:
   sfxDoorClose: {fileID: 7130661830552259289}
   sfxTestPass: {fileID: 6066753297753580994}
   sfxTestFail: {fileID: 1128307623521140078}
+  voStart: []
+  voSuccess: []
+  voFail: []
   prevRoomScript: {fileID: 0}
   nextRoomScript: {fileID: 0}
 --- !u!65 &1769197233789856404
@@ -756,8 +762,8 @@ Transform:
   m_GameObject: {fileID: 2173702618212371899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
-  m_LocalScale: {x: 0.4, y: 10, z: 20}
+  m_LocalPosition: {x: 0, y: 5, z: -10}
+  m_LocalScale: {x: 0.4, y: 4, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7206257426623435136}
@@ -1020,7 +1026,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2.5}
-  m_LocalScale: {x: 0.4, y: 15, z: 5}
+  m_LocalScale: {x: 0.4, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7206257426623435136}
@@ -1208,7 +1214,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: -13}
-  m_LocalScale: {x: 10, y: 20, z: 0.4}
+  m_LocalScale: {x: 10, y: 15, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6706520472971508508}
@@ -2030,7 +2036,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -3.9, y: 3.5, z: -0.1}
-  m_LocalScale: {x: 10, y: 0.6, z: 0.2}
+  m_LocalScale: {x: 7.3, y: 0.6, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5503104452100275000}
@@ -2696,7 +2702,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10.5}
-  m_LocalScale: {x: 0.4, y: 15, z: 6}
+  m_LocalScale: {x: 0.4, y: 10, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7206257426623435136}
@@ -2800,8 +2806,8 @@ Transform:
   m_GameObject: {fileID: 8084956459251161563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -10}
-  m_LocalScale: {x: 0.2, y: 10, z: 20}
+  m_LocalPosition: {x: 0, y: 3.5, z: -10}
+  m_LocalScale: {x: 0.2, y: 7, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7206257426623435136}
@@ -2927,6 +2933,7 @@ MonoBehaviour:
   subject: {fileID: 988681592028760322}
   simuateOnFinish: []
   sfx: {fileID: 3977764292999474649}
+  open: 0
 --- !u!1 &8968239998727987123
 GameObject:
   m_ObjectHideFlags: 0
