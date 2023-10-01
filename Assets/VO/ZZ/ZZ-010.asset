@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df40a5c7ec3972d43a296ca0c4c8bc0c, type: 3}
+  m_Name: ZZ-010
+  m_EditorClassIdentifier: 
+  voiceClip: {fileID: 8300000, guid: 329d941e1521fe045872622d8d8c3945, type: 3}
+  whisperClip: {fileID: 8300000, guid: b53c4b53d8bc8d14587ced213f97d3ee, type: 3}
+  alienText: "be geltu ma wa wi s\u0323utuhb"
+  englishText: This experiment has a foregone conclusion.
+  startActions: 
+  endActions: 
+  wait: 0

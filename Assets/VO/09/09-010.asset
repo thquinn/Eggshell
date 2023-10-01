@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df40a5c7ec3972d43a296ca0c4c8bc0c, type: 3}
+  m_Name: 09-010
+  m_EditorClassIdentifier: 
+  voiceClip: {fileID: 8300000, guid: 7ad03f00da32ede4c8875647d5bd9f36, type: 3}
+  whisperClip: {fileID: 8300000, guid: 6a56380bcb9ebb54a8798f4c585e6512, type: 3}
+  alienText: ma ge ma yuhsuyek
+  englishText: It is to be expected.
+  startActions: 
+  endActions: 
+  wait: 0

@@ -72,6 +72,12 @@ public class AlienScript : MonoBehaviour
             state = AlienState.Main;
         }
     }
+    public void EnqueueVO(params VOScriptableObject[] vos) {
+        foreach (VOScriptableObject vo in vos) {
+            voQueue.Enqueue(vo);
+        }
+        SFXSpeak();
+    }
 
     void Update() {
         stateTimer += Time.deltaTime;

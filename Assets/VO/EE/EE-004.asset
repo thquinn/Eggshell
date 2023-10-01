@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df40a5c7ec3972d43a296ca0c4c8bc0c, type: 3}
+  m_Name: EE-004
+  m_EditorClassIdentifier: 
+  voiceClip: {fileID: 8300000, guid: fa26bf194e073e144a7fb56e88436ae3, type: 3}
+  whisperClip: {fileID: 8300000, guid: 98328ce6cb9c7f44c9cb9c44c7300138, type: 3}
+  alienText: "huhk va mew s\u0323ok chubwuk vadad wa s\u0323ek doye"
+  englishText: 'Worry not: you will nevertheless serve a grand purpose.'
+  startActions: 
+  endActions: 
+  wait: 0

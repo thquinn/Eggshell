@@ -8,6 +8,7 @@ public class RoomScript_End : MonoBehaviour
     static float CLOCHE_DIM_FACTOR = .66f;
 
     public FootprintTriggerScript trigger;
+    public VOScriptableObject[] elevatorVOs;
     public GameObject[] elevatorParts;
     public Transform[] ceilingPivots;
     public GameObject diningParent, clocheMock;
@@ -51,6 +52,7 @@ public class RoomScript_End : MonoBehaviour
             }
             phase = EndPhase.Elevator;
             AlienScript.instance.ChangeState(AlienState.EndElevator);
+            AlienScript.instance.EnqueueVO(elevatorVOs);
         }
     }
     void UpdateElevator() {
