@@ -20,6 +20,9 @@ public class RoomScript_03StackTrigger : MonoBehaviour
             stackTime = 0;
         }
         if (stackTime >= 2) {
+            foreach (Rigidbody rb in cubes) {
+                rb.isKinematic = true;
+            }
             roomScript.OpenDoor();
             enabled = false;
         }

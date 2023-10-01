@@ -2287,6 +2287,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_End
       objectReference: {fileID: 0}
+    - target: {fileID: 4878109176051215230, guid: a8397b7c969782e42bc3dd142f261c03,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878109176051215230, guid: a8397b7c969782e42bc3dd142f261c03,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6149854900812553116, guid: a8397b7c969782e42bc3dd142f261c03,
         type: 3}
       propertyPath: m_LocalPosition.x

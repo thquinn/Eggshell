@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript instance;
+
     static float MOVE_SPEED = 5;
     static float MOVE_INERTIA = .9f;
     static float STOP_INERTIA = .9f;
@@ -28,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     Vector3 vIntroTheta;
 
     void Start() {
+        instance = this;
         Cursor.lockState = CursorLockMode.Locked;
         if (GameObject.FindGameObjectWithTag("IntroRoom") != null) {
             intro = true;
@@ -60,6 +63,7 @@ public class PlayerScript : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(thetaX, 0, 0);
     }
     void UpdateControls() {
+        if (rb.isKinematic) return;
         isGrounded = Util.IsOnGround(gameObject, 8, .5f, .1f);
         if (groundTimer < 0) {
             groundTimer = Mathf.Min(0, groundTimer + Time.deltaTime);
