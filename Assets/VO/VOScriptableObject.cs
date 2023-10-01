@@ -5,7 +5,7 @@ public class VOScriptableObject : ScriptableObject
 {
     public AudioClip voiceClip, whisperClip;
     public string alienText, englishText;
-    public VOScriptAction[] startActions;
+    public VOScriptAction[] startActions, endActions;
     public float wait;
 }
 
@@ -14,4 +14,5 @@ public enum VOScriptAction {
     OpenDoor,
     LookAtPlayer,
     LookAtDoor,
+    Grin,
 }

@@ -22,6 +22,7 @@ public class AlienScript : MonoBehaviour
     public Transform cameraTransform;
     public Transform bobAnchor;
     public Transform[] sclarae, irises;
+    public Transform mouthTransform;
     public AudioSource sfxSourceKnock, sfxSourceSpeech, sfxSourceWhisper;
     public AudioClip[] sfxClipsKnock;
     public VOScriptableObject[] voIntroTalking, voIntroWaitingToProgress;
@@ -34,6 +35,7 @@ public class AlienScript : MonoBehaviour
     Vector3 targetPosition;
     Vector3 vTranslate, vRotate;
     Vector3 lookOverride;
+    Vector3 vGrin;
 
     Queue<VOScriptableObject> voQueue;
     public VOScriptableObject voActive;
@@ -107,6 +109,9 @@ public class AlienScript : MonoBehaviour
             }
         }
         UpdateMain();
+        if (state == AlienState.EndGrin) {
+            mouthTransform.localScale = Vector3.SmoothDamp(mouthTransform.localScale, Vector3.one, ref vGrin, 1f);
+        }
     }
 
     void UpdateMain() {
@@ -194,6 +199,9 @@ public class AlienScript : MonoBehaviour
         Invoke("ClearVOActive", length - 1);
     }
     void ClearVOActive() {
+        if (voActive != null) {
+            HandleScriptActions(voActive.endActions);
+        }
         if (voQueue.Count > 0) {
             Invoke("SFXSpeak", 2 + voActive.wait);
         }
@@ -209,6 +217,8 @@ public class AlienScript : MonoBehaviour
                 lookOverride = currentRoom.transform.position + new Vector3(6, 2, -6);
             } else if (action == VOScriptAction.LookAtPlayer) {
                 lookOverride = Vector3.zero;
+            } else if (action == VOScriptAction.Grin) {
+                ChangeState(AlienState.EndGrin);
             }
         }
     }
@@ -224,4 +234,5 @@ public enum AlienState
     Main,
     EndElevator,
     EndLooming,
+    EndGrin,
 }
