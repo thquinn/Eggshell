@@ -175,6 +175,7 @@ MonoBehaviour:
   - {fileID: 2643890110470189887}
   - {fileID: 3364131565700686395}
   subject: {fileID: 588766048964103040}
+  simuateOnFinish: []
 --- !u!1 &590656205303190410
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ GameObject:
   - component: {fileID: 1076801643553742508}
   - component: {fileID: 8723376614832279859}
   - component: {fileID: 1441117769268865684}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +662,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983267573002212870}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -730,6 +731,8 @@ MonoBehaviour:
   door: {fileID: 3085891282997733314}
   panelFloor: {fileID: 2161275600404154981}
   panelCeiling: {fileID: 7880828764538287114}
+  usesPanelFloor: 0
+  usesPanelCeiling: 0
   reflectedObjects:
   - {fileID: 7815885283867501950}
   - {fileID: 2784009257127810757}
@@ -941,7 +944,8 @@ GameObject:
   - component: {fileID: 3364131565700686395}
   - component: {fileID: 2866952169889998150}
   - component: {fileID: 6554345745779167909}
-  m_Layer: 6
+  - component: {fileID: 3122419391531028879}
+  m_Layer: 11
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,6 +1017,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3122419391531028879
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519854969919915156}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2784009257127810757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1317,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2880303082452221198}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1400,7 +1425,7 @@ GameObject:
   - component: {fileID: 1395313783483511376}
   - component: {fileID: 7404264363897726296}
   - component: {fileID: 6566681285923540944}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1577,7 @@ GameObject:
   - component: {fileID: 2827506182269114591}
   - component: {fileID: 7286449403457348508}
   - component: {fileID: 4868797831297237145}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2250,7 +2275,6 @@ GameObject:
   - component: {fileID: 2909579346000995688}
   - component: {fileID: 5551655661586611721}
   - component: {fileID: 2837187416542678986}
-  - component: {fileID: 5344291844338140647}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -2323,27 +2347,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5344291844338140647
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7086811067851247550}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7437769015102270423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,7 +2387,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7437769015102270423}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2422,7 +2425,8 @@ GameObject:
   - component: {fileID: 2643890110470189887}
   - component: {fileID: 4078651869165746490}
   - component: {fileID: 6046271244416257376}
-  m_Layer: 6
+  - component: {fileID: 5714679367501561843}
+  m_Layer: 11
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2494,6 +2498,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5714679367501561843
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781966178690389781}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7815885283867501950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,7 +2686,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16482e05efb2df048b5d3c19d883d62b, type: 2}
+  - {fileID: 2100000, guid: fc9c9cf3dd0356a4c927b489eeda3a2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2753,6 +2778,7 @@ MonoBehaviour:
   - {fileID: 1395313783483511376}
   - {fileID: 1076801643553742508}
   subject: {fileID: 988681592028760322}
+  simuateOnFinish: []
 --- !u!1 &8968239998727987123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,7 +2933,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9045597927808786865}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

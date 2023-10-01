@@ -7,6 +7,8 @@ public class RoomScript : MonoBehaviour
     public GameObject prefabNextRoom;
     public DoorScript door;
     public PanelScript panelFloor, panelCeiling;
+    public bool usesPanelFloor, usesPanelCeiling;
+
     public GameObject[] reflectedObjects;
     public Material materialReflection;
 
@@ -24,6 +26,15 @@ public class RoomScript : MonoBehaviour
         }
         reflection.localScale = new Vector3(1, 1, -1);
         reflection.parent = transform;
+        Invoke("OpenPanels", .5f);
+    }
+    public void OpenPanels() {
+        if (usesPanelFloor) {
+            panelFloor.Open();
+        }
+        if (usesPanelCeiling) {
+            panelCeiling.Open();
+        }
     }
     public void OpenDoor() {
         if (nextRoomScript == null) {
@@ -33,6 +44,9 @@ public class RoomScript : MonoBehaviour
             nextRoomScript.transform.position = transform.position + new Vector3(8, 0, 0);
         }
         door.Open();
+    }
+    public void CloseDoor() {
+        door.Close();
     }
 
     void Update() {

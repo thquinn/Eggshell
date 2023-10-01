@@ -105,7 +105,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39293902046475832}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -412,7 +412,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5561222759370487438}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7992e7ac2fee27b43bb6c8ad65b19de9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -664,13 +664,38 @@ PrefabInstance:
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
       propertyPath: reflectedObjects.Array.size
-      value: 18
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
       propertyPath: 'reflectedObjects.Array.data[17]'
       value: 
       objectReference: {fileID: 39293902046475832}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'reflectedObjects.Array.data[18]'
+      value: 
+      objectReference: {fileID: 6800504369167428938}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'reflectedObjects.Array.data[19]'
+      value: 
+      objectReference: {fileID: 5134690203093089134}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'reflectedObjects.Array.data[20]'
+      value: 
+      objectReference: {fileID: 7829839523090050010}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'reflectedObjects.Array.data[21]'
+      value: 
+      objectReference: {fileID: 3471147920769439672}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'reflectedObjects.Array.data[22]'
+      value: 
+      objectReference: {fileID: 613013566414396316}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

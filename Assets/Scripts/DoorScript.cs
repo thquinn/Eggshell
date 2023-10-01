@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
-    static float OPENCLOSE_TIME = .5f;
+    static float OPENCLOSE_TIME = .4f;
 
     public GameObject doorCollision;
 

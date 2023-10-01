@@ -13,11 +13,11 @@ TagManager:
   - UI
   - Terrain
   - Player
-  - Trigger
-  - 
-  - 
-  - 
-  - 
+  - PlayerTrigger
+  - Toy
+  - GrabVolume
+  - NonPlayerTerrain
+  - ToyTrigger
   - 
   - 
   - 
