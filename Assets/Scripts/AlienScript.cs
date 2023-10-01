@@ -13,6 +13,7 @@ public class AlienScript : MonoBehaviour
     static Vector2 REPOSITION_TIMER_RANGE = new(5, 15);
     static Vector2 BLINK_TIMER_RANGE = new(1, 5);
     static float BLINK_TIME = .1f;
+    static float FLOAT_STRENGTH = .05f;
 
     public Transform cameraTransform;
     public Transform bobAnchor;
@@ -67,10 +68,10 @@ public class AlienScript : MonoBehaviour
         offsetTargetPosition.z += .1f * cameraTransform.position.z;
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 8);
         bobAnchor.localPosition = new Vector3(
-            .1f * Mathf.Sin(Time.time),
-            .1f * Mathf.Sin(Time.time * 2),
-            .1f * Mathf.Sin(Time.time * .5f)
-        );
+            Mathf.Sin(Time.time),
+            Mathf.Sin(Time.time * 2.1f),
+             Mathf.Sin(Time.time * .5f)
+        ) * FLOAT_STRENGTH;
         // Blink.
         blinkTimer -= Time.deltaTime;
         if (blinkTimer <= 0) {
