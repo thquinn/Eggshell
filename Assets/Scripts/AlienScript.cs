@@ -136,9 +136,11 @@ public class AlienScript : MonoBehaviour
             }
         }
         Vector3 offsetTargetPosition = targetPosition;
-        float roomX = Mathf.RoundToInt(lookTarget.x / 8) * 8;
+        float roomX = Mathf.RoundToInt(cameraTransform.position.x / 8) * 8;
         offsetTargetPosition.x += roomX;
-        offsetTargetPosition.x += 1 * (roomX - lookTarget.x);
+        float xOffset = 1 * (roomX - lookTarget.x);
+        xOffset = Mathf.Clamp(xOffset, -4, 4);
+        offsetTargetPosition.x += xOffset;
         offsetTargetPosition.z += .1f * lookTarget.z;
         if (state >= AlienState.IntroAppearing) {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 8);
@@ -195,7 +197,7 @@ public class AlienScript : MonoBehaviour
             } else if (action == VOScriptAction.OpenDoor) {
                 currentRoom.OpenDoor();
             } else if (action == VOScriptAction.LookAtDoor) {
-                lookOverride = currentRoom.transform.position + new Vector3(4, 2, -6);
+                lookOverride = currentRoom.transform.position + new Vector3(6, 2, -6);
             } else if (action == VOScriptAction.LookAtPlayer) {
                 lookOverride = Vector3.zero;
             }

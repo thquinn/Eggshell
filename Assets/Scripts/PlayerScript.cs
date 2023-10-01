@@ -5,28 +5,35 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    static float MOVE_SPEED = 10;
+    static float MOVE_SPEED = 5;
     static float MOVE_INERTIA = .9f;
     static float STOP_INERTIA = .9f;
     static float LOOK_SENSITIVITY = 2;
     static float JUMP_SPEED = 5f;
     static float COYOTE_TIME = .33f;
     static float JUMP_DELAY = .2f;
+    static float FOOTSTEP_TIMER = 2f;
 
     public Rigidbody rb;
     public Camera cam;
+    public AudioSource sfxSourceStep;
+    public AudioClip[] sfxClipsStep;
+    public AudioClip[] sfxClipsJump;
 
     bool isGrounded, jumped;
     float groundTimer;
     bool intro;
     float introTimer;
+    float footstepTimer;
     Vector3 vIntroTheta;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
-        intro = true;
-        rb.isKinematic = true;
-        transform.localRotation = Quaternion.Euler(new Vector3(-90, 20, 0));
+        if (GameObject.FindGameObjectWithTag("IntroRoom") != null) {
+            intro = true;
+            rb.isKinematic = true;
+            transform.localRotation = Quaternion.Euler(new Vector3(-90, 20, 0));
+        }
     }
 
     void Update() {
@@ -69,6 +76,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
     void UpdateVelocity() {
+        if (rb.isKinematic) return;
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (input.sqrMagnitude > 1) {
             input.Normalize();
@@ -82,9 +90,19 @@ public class PlayerScript : MonoBehaviour
         );
 
         float moveMagnitude = moveVelocity.magnitude;
+        if (isGrounded) {
+            footstepTimer -= moveMagnitude * Time.fixedDeltaTime;
+        }
+        if (moveMagnitude < 1) {
+            footstepTimer = FOOTSTEP_TIMER;
+        }
+        if (footstepTimer <= 0) {
+            SFXStep();
+        }
         float yVelocity = rb.velocity.y;
          if (jumped) {
             yVelocity = JUMP_SPEED;
+            SFXJump();
         }
         jumped = false;
         rb.velocity = new Vector3(moveVelocity.x, yVelocity, moveVelocity.z);
@@ -95,10 +113,23 @@ public class PlayerScript : MonoBehaviour
         if (introTimer > 2) {
             transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, Quaternion.identity, ref vIntroTheta, 1);
         }
-        if (Mathf.Abs(transform.localRotation.eulerAngles.x) < 1) {
+        if (Mathf.DeltaAngle(transform.localRotation.eulerAngles.x, 0) < .5f) {
             transform.localRotation = Quaternion.identity;
             rb.isKinematic = false;
             intro = false;
+        }
+    }
+
+    void SFXStep() {
+        sfxSourceStep.PlayOneShot(sfxClipsStep[Random.Range(0, sfxClipsStep.Length)]);
+        footstepTimer = FOOTSTEP_TIMER;
+    }
+    void SFXJump() {
+        sfxSourceStep.PlayOneShot(sfxClipsJump[Random.Range(0, sfxClipsJump.Length)]);
+    }
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.relativeVelocity.sqrMagnitude > 1 && Vector3.Dot(collision.GetContact(0).normal, Vector3.up) > .9f) {
+            SFXStep();
         }
     }
 }

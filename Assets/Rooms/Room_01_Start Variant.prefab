@@ -605,6 +605,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_01_Start Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2036373759701622408, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: m_TagString
+      value: IntroRoom
+      objectReference: {fileID: 0}
     - target: {fileID: 6706520472971508508, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
       propertyPath: m_LocalPosition.x

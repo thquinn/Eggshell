@@ -16,13 +16,17 @@ public class DoorScript : MonoBehaviour
         closedPos = transform.localPosition;
         openPos = closedPos + new Vector3(0, 2.9f, 0);
     }
-    public void Open() {
+    public bool Open() {
+        bool wasOpening = opening;
         opening = true;
         doorCollision.SetActive(false);
+        return !wasOpening;
     }
-    public void Close() {
+    public bool Close() {
+        bool wasOpening = opening;
         opening = false;
         doorCollision.SetActive(true);
+        return wasOpening;
     }
 
     void Update() {

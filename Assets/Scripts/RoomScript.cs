@@ -12,6 +12,7 @@ public class RoomScript : MonoBehaviour
 
     public GameObject[] reflectedObjects;
     public Material materialReflection;
+    public AudioSource sfxDoorOpen, sfxDoorClose, sfxTestPass, sfxTestFail;
 
     [HideInInspector] public RoomScript prevRoomScript, nextRoomScript;
     bool occupied;
@@ -27,7 +28,6 @@ public class RoomScript : MonoBehaviour
         }
         reflection.localScale = new Vector3(1, 1, -1);
         reflection.parent = transform;
-        //Invoke("OpenPanels", .5f);
     }
     public void OpenPanels() {
         if (usesPanelFloor) {
@@ -44,10 +44,19 @@ public class RoomScript : MonoBehaviour
             nextRoomScript.prevRoomScript = this;
             nextRoomScript.transform.position = transform.position + new Vector3(8, 0, 0);
         }
-        door.Open();
+        bool opened = door.Open();
+        if (opened) {
+            if (tag != "IntroRoom") {
+                sfxTestPass.Play();
+            }
+            sfxDoorOpen.Play();
+        }
     }
     public void CloseDoor() {
-        door.Close();
+        bool closed = door.Close();
+        if (closed) {
+            sfxDoorClose.Play();
+        }
     }
 
     void Update() {
@@ -69,6 +78,6 @@ public class RoomScript : MonoBehaviour
     }
     private void OnTriggerExit(Collider other) {
         occupied = false;
-        door.Close();
+        CloseDoor();
     }
 }
