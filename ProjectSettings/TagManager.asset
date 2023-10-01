@@ -6,6 +6,7 @@ TagManager:
   tags:
   - IntroRoom
   - Grabbed
+  - Button
   layers:
   - Default
   - TransparentFX

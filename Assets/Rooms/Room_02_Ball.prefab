@@ -585,6 +585,28 @@ PrefabInstance:
       propertyPath: usesPanelFloor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: voStart.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: voSuccess.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'voStart.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 39665a5a93908114d9fa717c448056b9,
+        type: 2}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'voSuccess.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ff4ccd32ede385442b9e2c4f519bfe05,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -13,7 +13,7 @@ public class RoomScript : MonoBehaviour
     public GameObject[] reflectedObjects;
     public Material materialReflection;
     public AudioSource sfxDoorOpen, sfxDoorClose, sfxTestPass, sfxTestFail;
-    public VOScriptableObject voStart, voSuccess;
+    public VOScriptableObject[] voStart, voSuccess, voFail;
 
     [HideInInspector] public RoomScript prevRoomScript, nextRoomScript;
     bool occupied;
@@ -51,9 +51,7 @@ public class RoomScript : MonoBehaviour
                 sfxTestPass.Play();
             }
             sfxDoorOpen.Play();
-            if (voSuccess != null) {
-                AlienScript.instance.EnqueueVO(voSuccess);
-            }
+            AlienScript.instance.EnqueueVO(voSuccess);
         }
     }
     public void CloseDoor() {
@@ -70,9 +68,7 @@ public class RoomScript : MonoBehaviour
         occupied = true;
         OpenPanels();
         AlienScript.instance.SetCurrentRoom(this);
-        if (voStart != null) {
-            AlienScript.instance.EnqueueVO(voStart);
-        }
+        AlienScript.instance.EnqueueVO(voStart);
     }
     private void OnTriggerExit(Collider other) {
         occupied = false;

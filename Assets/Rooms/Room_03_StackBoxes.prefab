@@ -556,6 +556,28 @@ PrefabInstance:
       propertyPath: usesPanelFloor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: voStart.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: voSuccess.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'voStart.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7dda353a621a4844f92b230ace5b7a97,
+        type: 2}
+    - target: {fileID: 8046528996094395742, guid: b183be5debc4b0a48a6362d01471ee11,
+        type: 3}
+      propertyPath: 'voSuccess.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a26ce679a1a2074ab92550f1026b1cd,
+        type: 2}
     - target: {fileID: 8163292135863816080, guid: b183be5debc4b0a48a6362d01471ee11,
         type: 3}
       propertyPath: m_LocalScale.z

@@ -10,14 +10,21 @@ public class GrabVolumeScript : MonoBehaviour
 
     Vector3 holdPosition;
     List<Rigidbody> withinVolume;
+    List<SimonButtonScript> buttonsWithinVolume;
     Rigidbody grabbed;
 
     void Start() {
         withinVolume = new();
+        buttonsWithinVolume = new();
     }
 
     void Update() {
         holdPosition = transform.position + transform.up * HOLD_POSITION_OFFSET_FORWARD;
+        if (Input.GetMouseButtonDown(0) && buttonsWithinVolume.Count > 0) {
+            int minIndex = buttonsWithinVolume.Select((item, index) => ((item.transform.position - holdPosition).sqrMagnitude, index)).Min().index;
+            buttonsWithinVolume[minIndex].Push();
+            return;
+        }
         if (Input.GetMouseButtonDown(0) && withinVolume.Count > 0) {
             int minIndex = withinVolume.Select((item, index) => ((item.position - holdPosition).sqrMagnitude, index)).Min().index;
             grabbed = withinVolume[minIndex];
@@ -39,9 +46,21 @@ public class GrabVolumeScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        withinVolume.Add(other.attachedRigidbody);
+        if (other.attachedRigidbody != null) {
+            withinVolume.Add(other.attachedRigidbody);
+        }
+        SimonButtonScript buttonScript = other.GetComponent<SimonButtonScript>();
+        if (buttonScript != null) {
+            buttonsWithinVolume.Add(buttonScript);
+        }
     }
     private void OnTriggerExit(Collider other) {
-        withinVolume.Remove(other.attachedRigidbody);
+        if (other.attachedRigidbody != null) {
+            withinVolume.Remove(other.attachedRigidbody);
+        }
+        SimonButtonScript buttonScript = other.GetComponent<SimonButtonScript>();
+        if (buttonScript != null) {
+            buttonsWithinVolume.Remove(buttonScript);
+        }
     }
 }

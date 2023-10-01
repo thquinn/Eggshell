@@ -885,45 +885,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3441484342174176667, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6015408196496941816, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6214194404682526266, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 2714de3f88d3b9041bb34260b6c5d040, type: 2}
     - target: {fileID: 7447058470168074520, guid: f31b7ad91817367479cdaa88ef99fb00,
         type: 3}
       propertyPath: m_Name
       value: Room_09_Simon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7513910059750012352, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8214161544886840366, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8316824588319980535, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_Name
-      value: SimonButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 8496729532991822140, guid: f31b7ad91817367479cdaa88ef99fb00,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
