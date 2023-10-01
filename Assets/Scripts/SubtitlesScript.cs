@@ -34,10 +34,6 @@ public class SubtitlesScript : MonoBehaviour
 
     StringBuilder sb = new StringBuilder();
     string AlienTextToTennent(string alienText) {
-        alienText = alienText.Trim();
-        if (alienText.EndsWith('.')) {
-            alienText = alienText.Substring(0, alienText.Length - 1);
-        }
         alienText = alienText.Replace(",", "").Replace("'", "").Replace(".", "");
         alienText = Regex.Replace(alienText, @"\s+", " ");
         string[] tokens = alienText.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);

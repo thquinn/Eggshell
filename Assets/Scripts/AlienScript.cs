@@ -58,7 +58,7 @@ public class AlienScript : MonoBehaviour
     void SetRepositionTimer() {
         repositionTimer = Util.SampleRangeVector(REPOSITION_TIMER_RANGE);
     }
-    void ChangeState(AlienState newState) {
+    public void ChangeState(AlienState newState) {
         state = newState;
         stateTimer = 0;
     }
@@ -134,21 +134,30 @@ public class AlienScript : MonoBehaviour
                 targetPosition = new Vector3(x, y, z);
                 SetRepositionTimer();
             }
+        } else if (state == AlienState.EndElevator) {
+            float z = Z_RANGE.x;
+            targetPosition = new(0, Y_RANGE_PER_Z.x * z, z);
+        } else if (state == AlienState.EndLooming) {
+            targetPosition = new(0, 20, 7);
         }
         Vector3 offsetTargetPosition = targetPosition;
         float roomX = Mathf.RoundToInt(cameraTransform.position.x / 8) * 8;
         offsetTargetPosition.x += roomX;
-        float xOffset = 1 * (roomX - lookTarget.x);
-        xOffset = Mathf.Clamp(xOffset, -4, 4);
-        offsetTargetPosition.x += xOffset;
-        offsetTargetPosition.z += .1f * lookTarget.z;
+        if (state <= AlienState.EndElevator) {
+            float xOffset = 1 * (roomX - lookTarget.x);
+            xOffset = Mathf.Clamp(xOffset, -4, 4);
+            float yOffset = lookTarget.y;
+            offsetTargetPosition.x += xOffset;
+            offsetTargetPosition.y -= yOffset * .66f;
+            offsetTargetPosition.z += lookTarget.z * .1f;
+        }
         if (state >= AlienState.IntroAppearing) {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, offsetTargetPosition, ref vTranslate, 2, 8);
         }
         bobAnchor.localPosition = new Vector3(
             Mathf.Sin(Time.time),
             Mathf.Sin(Time.time * 2.1f),
-             Mathf.Sin(Time.time * .5f)
+            state <= AlienState.EndElevator ? Mathf.Sin(Time.time * .5f) : 0
         ) * FLOAT_STRENGTH;
         // Blink.
         if (state >= AlienState.IntroAppearing) {
@@ -205,7 +214,7 @@ public class AlienScript : MonoBehaviour
     }
 }
 
-enum AlienState
+public enum AlienState
 {
     IntroWaitingToAwaken,
     IntroKnocking,
@@ -213,4 +222,6 @@ enum AlienState
     IntroTalking,
     IntroWaitingToProgress,
     Main,
+    EndElevator,
+    EndLooming,
 }

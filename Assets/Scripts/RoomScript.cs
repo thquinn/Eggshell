@@ -72,6 +72,9 @@ public class RoomScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (other.attachedRigidbody.isKinematic) {
+            return;
+        }
         occupied = true;
         OpenPanels();
         AlienScript.instance.SetCurrentRoom(this);
