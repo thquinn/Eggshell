@@ -18,4 +18,4 @@ MonoBehaviour:
   englishText: 'Worry not: you will nevertheless serve a grand purpose.'
   startActions: 
   endActions: 
-  wait: 0
+  wait: 3

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomScript_End : MonoBehaviour
 {
-    static float ELEVATOR_RIDE_LENGTH = 12;
+    static float ELEVATOR_RIDE_LENGTH = 10;
     static float CLOCHE_DIM_FACTOR = .66f;
 
     public RoomScript roomScript;
@@ -48,7 +48,7 @@ public class RoomScript_End : MonoBehaviour
 
     void UpdateWaitingForTrigger() {
         Color c = footprintRenderer.color;
-        c.a = (Mathf.Sin(Time.time) + 1) / 4;
+        c.a = AlienScript.instance.IsVODone() ? (Mathf.Sin(Time.time) + 1) / 4 : 0;
         footprintRenderer.color = c;
         if (trigger.triggered) {
             trigger.enabled = false;

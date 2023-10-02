@@ -34,7 +34,7 @@ public class SubtitlesScript : MonoBehaviour
 
     StringBuilder sb = new StringBuilder();
     string AlienTextToTennent(string alienText) {
-        alienText = alienText.Replace(",", "").Replace("'", "").Replace(".", "");
+        alienText = alienText.ToLower().Replace(",", "").Replace("'", "").Replace(".", "").Replace("\\", "");
         alienText = Regex.Replace(alienText, @"\s+", " ");
         string[] tokens = alienText.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
         sb.Clear();
@@ -44,7 +44,8 @@ public class SubtitlesScript : MonoBehaviour
         }
         Random.state = randomState;
         string tennent = sb.ToString();
-        tennent = Regex.Replace(tennent, @"(\w)\1+", "$1\\.");
+        tennent = Regex.Replace(tennent, @"(\w)\1+", "$1.");
+        if (tennent.EndsWith('.')) tennent += "l";
         return new string(tennent.Reverse().ToArray());
     }
     void TranslateAndPrependToken(StringBuilder sb, string alienToken) {

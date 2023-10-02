@@ -39,7 +39,7 @@ public class RoomScript_09Simon : MonoBehaviour
         }
         int next;
         do { next = Random.Range(0, 5); }
-        while (next == sequence[sequence.Count - 1]);
+        while (next == sequence[sequence.Count - 1] || next == sequence[0]);
         sequence.Add(next);
         maxLength = Mathf.Max(maxLength, sequence.Count);
         testIndex = 0;

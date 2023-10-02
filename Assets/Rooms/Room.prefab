@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f74c7d4ecb9394e9ae44b314607c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabNextRoom: {fileID: 0}
+  prefabNextRoom: {fileID: 2036373759701622408}
   door: {fileID: 3085891282997733314}
   panelFloor: {fileID: 2161275600404154981}
   panelCeiling: {fileID: 7880828764538287114}

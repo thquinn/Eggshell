@@ -18,31 +18,36 @@ public class VignetteScript : MonoBehaviour
     void Start() {
         instance = this;
         if (Application.isEditor) {
-            //enabled = false; // DEBUG
-            //return;
+            Destroy(gameObject);
+            return;
         }
     }
     public void Knock() {
-        knocks++;
+        Invoke("KnockImpl", .5f);
+    }
+    void KnockImpl() {
         if (!dismissed) {
-            yTarget += knocks * 1000;
+            yTarget += 1000 + knocks * 2500;
         }
+        knocks++;
     }
 
     void Update() {
         float closeSpeed = 1f / Mathf.Max(1, knocks);
-        if (!dismissed) {
+        if (dismissed) {
+            yTarget = 2000;
+        } else {
             yTarget = Mathf.SmoothDamp(yTarget, 0, ref vYTarget, closeSpeed);
         }
-        eyelidHeight = Mathf.SmoothDamp(eyelidHeight, yTarget, ref vEyelid, closeSpeed);
+        eyelidHeight = Mathf.SmoothDamp(eyelidHeight, yTarget, ref vEyelid, eyelidHeight < yTarget ? closeSpeed : 1 / closeSpeed);
         foreach (RectTransform rt in eyelids) {
             rt.sizeDelta = new Vector2(rt.sizeDelta.x, eyelidHeight);
         }
-        if (eyelidHeight > 1000 && knocks >= 2) {
+        if (eyelidHeight > 1500 && knocks >= 2) {
             dismissed = true;
         }
         if (dismissed) {
-            transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(2, 2, 1), ref vScale, 3);
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(2, 2, 1), ref vScale, 1);
             dismissTime += Time.deltaTime;
         }
     }

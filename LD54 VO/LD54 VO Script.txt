@@ -1,0 +1,131 @@
+LD54 VO Script
+
+- The language is "Dohtuvi," generated on Vulgarlang.
+	- https://www.vulgarlang.com/
+	- http://ipa-reader.xyz/ — "Salli" voice
+- The first line is the English, the second is the Dohtuvi, the third is the IPA.
+- All lines are simultaneously spoken and whispered. The speech is directional, the whisper is non-directional.
+- All lines are muffled by the window except the final scene, after the cloche is lifted.
+
+Room 01: Intro
+	01-001 Greetings, dirt creature.
+		suhṣ , bohwo chis
+		/sʌʂ , eˌjuboˈhwo ʧis/
+	01-002 You will serve one of two purposes.
+		mew ṣok vadad vap ṣo go doye
+		/mew ʂok βaˈdad βap ʂo go doˈje/
+	01-003 Intellectual nourishment, or nutritional nourishment.
+		ei ṣuvatsas , eyamboṣ ṣuvatsas bi
+		/eˈi ʂuβaˈʦas ejamˈboʂ ʂuβaˈʦas bi/
+	01-004 Show me which it shall be. (Open door.)
+		heg chof bamuh ga yeslu ma
+		/heg ʧoɸ baˈmʌ ga jeˈslu ma/
+	01-005 (Wait.) Please progress. There are many.
+		sutuh muppuhl . saṣ are wopi
+		/suˈtʌ mupˈpʌl . saʂ aˈre woˈpi/
+	01-006 (Long wait.) Please progress. (Repeat.)
+		sutuh muppuhl
+		/suˈtʌ mupˈpʌl/
+
+Room 02: Ball in Divot
+	02-001 A simple task.
+		wa hegsu tuṣ
+		/wa hegˈsu tuʂ/
+	02-002 (After completing.) It is good that you function. Progress.
+		ga ma tov mab mew tulneg . muppuhl
+		/ga ma toβ mab mew tulˈneg . mupˈpʌl/
+
+Room 03: Stack Three Boxes
+	03-001 Place one upon the other, and again.
+		hotmaw vap ṣauh suh ho , dub tem .
+		/hotˈmaw βap ʂaˈʌ sʌ ho , dub tem/
+	03-002 So far, a formality. Progress.
+		chuk ṣach , wa lito . muppuhl .
+		/ʧuk ʂaʧ , wa liˈto . mupˈpʌl ./
+
+Room 09: Simon Says
+	09-001 Have you begun to grasp this language?
+		mew havo ge yako be sotsol ?
+		/mew haˈβo ge jaˈko be soˈʦol ?/
+	09-002 Though it matters not: pattern recognition will suffice.
+		buhchnimyi ga bim va vuhm ṣuyop ṣok hulko
+		/bʌʧniˈmji ga bim βa βʌm ʂuˈjop ʂok hulˈko/
+	09-003 Let us begin.
+		di havo
+		/di haˈβo/
+	09-004 (symbol) Flame.
+		yuhsnip 
+		/jʌsˈnip/
+	09-005 (symbol) Water.
+		huh
+		/hʌ/
+	09-006 (symbol) Light.
+		ṣoṣ
+		/ʂoʂ/
+	09-007 (symbol) Electricity.
+		ṣap
+		/ʂap/
+	09-008 (symbol) Word.
+		sotsol
+		/soˈʦol/
+	09-009 (on success) That was very surprising. Congratulations, dirt creature.
+		mab af dad eyuhisnal . te , bohwo chis .
+		/mab aɸ dad eˌjuhisˈnal . te , boˈhwo ʧis ./
+	09-010 (on failure) It is to be expected.
+		ma ge ma yuhsuyek
+		/ma ge ma jʌsuˈjek/
+	09-011 (continued) After all, you are only a dirt creature.
+		ṣuh mew ma kus wa bohwo chis .
+		/ʂʌ mew ma kus wa boˈhwo ʧis ./
+	
+End
+	EE-001 Your purpose has become clear.
+		i doye has tsav buhtdi .
+		/i doˈje ʦaβ bʌtˈdi/
+	EE-002 You have failed to establish intellectual standing.
+		mew af ge let ei mad .
+		/mew aɸ ge let eˈi mad ./
+	EE-003 I hereby invoke Quilheen law.
+		liyo chof sam quilheen yaṣ .
+		/liˈjo ʧoɸ sam quˌilheˈen jaʂ ./
+	EE-004 Worry not: you will nevertheless serve a grand purpose.
+		huhk va mew ṣok chubwuk vadad wa ṣek doye
+		/hʌk βa mew ʂok ʧuˈbwuk βaˈdad wa ʂek doˈje ./
+	EE-005 You will become something more.
+		ṣok tsav chi lel
+		/ʂok ʦaβ ʧi lel/
+	EE-006 (unmuffled) My dinner. Hahaha. (grin)
+		we ṣuntallo
+		/we ʂuntaˈllo/
+
+Idle
+	ZZ-001 Time wanes, dirt creature.
+		kek he , bohwo chis
+		/kek he , boˈhwo ʧis/
+	ZZ-002 I hunger for you.
+		chof chano geṣ mew
+		/ʧoɸ ʧaˈno geʂ mew/
+	ZZ-003 Do you not value my time?
+		hotmaw mew va leb we kek ?
+		/hotˈmaw mew βa leb we kek ?/
+	ZZ-004 An eternally pointless exercise.
+		aktasu uch solne
+		/aktaˈsu uʧ solˈne/
+	ZZ-005 Soon you will be nutrition.
+		ṣabomu mew ṣok ma yamboṣ
+		/ʂaboˈmu mew ʂok ma jamˈboʂ /
+	ZZ-006 You spend that which you do not possess.
+		mew tos mab bamuh mew hotmaw va ye
+		/mew tos mab baˈmʌ mew hotˈmaw βa je/
+	ZZ-007 Try again, dirt creature.
+		ta tem , bohwo chis
+		/ta tem , boˈhwo ʧis/
+	ZZ-008 Damned experiment. I long for real entertainment.
+		emu geltu . chof eyuguhlbal geṣ hillu ṣuhw
+		/eˈmu gelˈtu . ʧoɸ eˌjugʌlˈbal geʂ hiˈllu ʂʌw/
+	ZZ-009 Your kind often fail to impress.
+		i voyi buspab af ge ya
+		/i βoˈji busˈpab aɸ ge ja/
+	ZZ-010 This experiment has a foregone conclusion.
+		be geltu ma wa wi ṣutuhb
+		/be gelˈtu ma wa wi ʂuˈtʌb/

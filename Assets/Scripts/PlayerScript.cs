@@ -25,7 +25,6 @@ public class PlayerScript : MonoBehaviour
     bool isGrounded, jumped;
     float groundTimer;
     bool intro;
-    float introTimer;
     float footstepTimer;
     Vector3 vIntroTheta;
 
@@ -113,11 +112,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     void UpdateIntro() {
-        if (VignetteScript.instance.dismissTime < 1) { return; }
-        introTimer += Time.deltaTime;
-        if (introTimer > 2) {
-            transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, Quaternion.identity, ref vIntroTheta, 1);
-        }
+        if (VignetteScript.instance != null && VignetteScript.instance.dismissTime < .5f) { return; }
+        transform.localRotation = Util.SmoothDampQuaternion(transform.localRotation, Quaternion.identity, ref vIntroTheta, 1);
         if (Mathf.DeltaAngle(transform.localRotation.eulerAngles.x, 0) < .5f) {
             transform.localRotation = Quaternion.identity;
             rb.isKinematic = false;
