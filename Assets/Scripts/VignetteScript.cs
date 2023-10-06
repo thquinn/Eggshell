@@ -48,6 +48,10 @@ public class VignetteScript : MonoBehaviour
         }
         if (dismissed) {
             transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(2, 2, 1), ref vScale, 1);
+            if (transform.localScale.x > 1.9f) {
+                Destroy(gameObject);
+                return;
+            }
             dismissTime += Time.deltaTime;
         }
     }

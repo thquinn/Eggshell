@@ -71,7 +71,6 @@ public class RoomScript : MonoBehaviour
         OpenPanels();
         AlienScript.instance.SetCurrentRoom(this);
         AlienScript.instance.EnqueueVO(voStart);
-        OpenDoor();
     }
     private void OnTriggerExit(Collider other) {
         occupied = false;
